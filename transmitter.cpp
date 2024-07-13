@@ -5,30 +5,20 @@
 #include <wiringPi.h>
 #include <unistd.h>
 
-extern "C" {
-#include <osmocom/core/utils.h>
-#include <osmocom/core/msgb.h>
-#include <osmocom/core/logging.h>
-#include <osmocom/core/socket.h>
-#include <osmocom/core/rate_ctr.h>
-#include <osmocom/core/linuxlist.h>
-#include <osmocom/core/bitvec.h>
-#include <osmocom/gsm/protocol/gsm_04_60.h>
-#include <osmocom/gsm/protocol/gsm_utils.h>
-#include <osmocom/gsm/sim/gsm_sim.h>
-#include <osmocom/gsm/sim/gsm_sim_auth.h>
-#include <osmocom/gsm/protocol/gsm_04_08.h>
-#include <osmocom/gsm/protocol/gsm_04_08_utils.h>
-#include <osmocom/gsm/protocol/gsm_04_08_cc.h>
-#include <osmocom/gsm/protocol/gsm_04_08_rr.h>
-#include <osmocom/gsm/protocol/gsm_04_08_ms.h>
-#include <osmocom/gsm/protocol/gsm_04_08_lchan.h>
-#include <osmocom/gsm/protocol/gsm_04_08_sap.h>
-#include <osmocom/gsm/protocol/gsm_rlcmac.h>
-#include <osmocom/gsm/protocol/gsm_rlcmac_utils.h>
-}
+// Constants for GSM burst parameters
+const int GSM_BURST_LENGTH = 156; // Length of GSM burst in samples
+const int GSM_BURST_SAMPLES[GSM_BURST_LENGTH] = {
+    1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
+    0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1,
+    0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0,
+    1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
+    1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1,
+    0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1,
+    0, 1, 1, 0, 1, 1, 0, 1, 0
+};
 
-#define ARFCN2FREQ(x) (935000000 + 200000*(x))
+void transmit_gsm_burst(int gpioPin);
 
 int main() {
     // Initialize WiringPi library for GPIO control
@@ -38,37 +28,22 @@ int main() {
     }
 
     // Set GPIO pin (for transmission control)
-    int gpioPin = 17; // Adjust this based on your setup
+    int gpioPin = 14; // GPIO14 (UART TX) on Raspberry Pi
     pinMode(gpioPin, OUTPUT);
 
-    // Configure GSM parameters
-    uint16_t arfcn = 975; // Example ARFCN (Adjust as per GSM band)
-    uint32_t freq = ARFCN2FREQ(arfcn); // Calculate frequency from ARFCN
+    // Transmit GSM burst
+    transmit_gsm_burst(gpioPin);
 
-    // Initialize Osmocom GSM structs
-    struct gsm_bts_trx trx;
-    trx.arfcn = arfcn;
-    trx.bs_power = 20; // Adjust BS power as needed
-    trx.c0 = -50; // Carrier offset
+    return 0;
+}
 
-    // Initialize GSM burst data
-    struct gsm_burst burst;
-    struct gsm_burst_data burst_data;
-    uint8_t burst_buff[156];
-
-    // Generate GSM burst
-    gsm_burst_generate(&burst, &burst_data, &trx, burst_buff);
-
+void transmit_gsm_burst(int gpioPin) {
     // Transmit burst samples
     while (true) {
         // Transmit GSM burst (simplified example)
-        for (int i = 0; i < burst_data.len; ++i) {
-            digitalWrite(gpioPin, HIGH); // Transmit burst sample
+        for (int i = 0; i < GSM_BURST_LENGTH; ++i) {
+            digitalWrite(gpioPin, GSM_BURST_SAMPLES[i]); // Transmit burst sample
             usleep(10); // Adjust timing as needed
-            digitalWrite(gpioPin, LOW); // End transmit
-            usleep(90); // Adjust timing as needed
         }
     }
-
-    return 0;
 }
