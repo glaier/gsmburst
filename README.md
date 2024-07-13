@@ -10,6 +10,7 @@ Libraries Used:
 GNU Radio and gr-gsm: Install GNU Radio and gr-gsm libraries to generate GSM bursts directly in C/C++.
 
 
+
 bash:
 
 sudo apt-get install gnuradio gr-osmosdr libosmosdr-dev
