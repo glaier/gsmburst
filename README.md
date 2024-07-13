@@ -72,7 +72,7 @@ Compile the C++ program (transmitter.cpp) on the Raspberry Pi:
 sudo apt-get install git
 git clone https://github.com/glaier/gsmburst
 cd gsmburst
-g++ -o transmitter transmitter.cpp -lwiringPi -losmocore
+g++ -o transmitter transmitter.cpp -lwiringPi -lm
 ```
 
 ## Run:
