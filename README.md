@@ -16,6 +16,8 @@ https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit
 ### Libraries Used:
 
 GNU Radio and gr-gsm: Install GNU Radio and gr-gsm libraries to generate GSM bursts directly in C/C++.
+>[!NOTE]
+>This step is not necessary with the current version of the program, since the actual pattern of the burst signal is not important in the test version.
 
 ```
 sudo apt-get install gnuradio gr-osmosdr libosmosdr-dev
