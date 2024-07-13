@@ -2,7 +2,7 @@
 
 Generate GSM burst on Raspberry Pi on GPIO 14 (UART TX)
 
-The idea of the program came from a very old concept. There is an anecdote that the old PC/Workstation platforms could be used to generate a jamming buzz on 1Mhz, 2.5MHz or similar combining the serial (UART pin) port with the PWM (Pulse Width Modulator) on the soundboard. This is basically what is going on in PiFM, fm_transmitte, rpitx and other Raspberry Pi based RF transmitter project that requires an antenna on the UART TX port on the Raspberry Pi (usually GPIO14 on the old models). It is also possible to program modules based on Micro RP2040, Pololu A-Star 32U4 Micro or Seeed Studio XIAO SAMD21 connecting those using the Arduino through IDEs like the Thonny IDE or Arduino IDE and then add an antenna. 
+The idea of the program came from a very old concept. There is an anecdote that the old PC/Workstation platforms could be used to generate a jamming buzz on 1Mhz, 2.5MHz or similar combining the serial (UART pin) port with the PWM (Pulse Width Modulator) on the soundboard. This is basically what is going on in PiFM, fm_transmitter, rpitx and other Raspberry Pi based RF transmitter projects that require an antenna on the UART TX port on the Raspberry Pi (usually GPIO14 on the old models). It is also possible to program modules based on Micro RP2040, Pololu A-Star 32U4 Micro or Seeed Studio XIAO SAMD21 connecting those using the Arduino through IDEs like the Thonny IDE or Arduino IDE and then add an antenna. 
 
 > [!WARNING]
 > WORK IN PROGRESS - OPENLAB VERSION - FRESH IDEA FROM THE WAFER
