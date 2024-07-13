@@ -69,6 +69,8 @@ Adjust usleep timings based on GSM burst rate and Raspberry Pi capabilities.
 Compile the C++ program (transmitter.cpp) on the Raspberry Pi:
 
 ```
+git clone https://github.com/glaier/gsmburst
+cd gsmburst
 g++ -o transmitter transmitter.cpp -lwiringPi -losmocore
 ```
 
