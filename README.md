@@ -15,26 +15,12 @@ https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit
 
 ### Libraries Used:
 
-GNU Radio and gr-gsm: Install GNU Radio and gr-gsm libraries to generate GSM bursts directly in C/C++.
->[!NOTE]
->This step is not necessary with the current version of the program, since the actual pattern of the burst signal is not important in the test version.
-
-```
-sudo apt-get install gnuradio gr-osmosdr libosmosdr-dev
-git clone https://git.osmocom.org/gr-gsm
-cd gr-gsm
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
-sudo ldconfig
-```
-
 WiringPi: Install WiringPi library for GPIO control in C/C++.
 
+Download package file from https://github.com/WiringPi/WiringPi/releases
+
 ```
-sudo apt-get install wiringpi
+sudo dpkg -i wiringpi_3.6_armhf.deb
 ```
 
 ## Explanation:
@@ -42,21 +28,12 @@ sudo apt-get install wiringpi
 ### WiringPi: 
 Provides easy GPIO control on the Raspberry Pi.
 
-### GNU Radio and gr-gsm: 
-Used for GSM signal generation (gsm_burst_generate function).
-
 ### GPIO Setup:
 wiringPiSetup() initializes WiringPi library.
 
 pinMode(gpioPin, OUTPUT) sets the GPIO pin mode for transmission.
 
 
-## GSM Burst Generation:
-
-
-GSM burst parameters (arfcn, bs_power, c0) are configured for the desired frequency.
-
-gsm_burst_generate() generates the GSM burst using the configured parameters.
 
 
 ## Transmitting GSM Burst:
