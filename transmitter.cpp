@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 // Constants for GSM burst parameters
-const int GSM_BURST_LENGTH = 156; // Length of GSM burst in samples
+const int GSM_BURST_LENGTH = 177; // Length of GSM burst in samples
 const int GSM_BURST_SAMPLES[GSM_BURST_LENGTH] = {
     1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
     0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
