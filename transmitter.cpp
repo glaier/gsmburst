@@ -29,7 +29,7 @@ const int GSM_BURST_SAMPLES[GSM_BURST_LENGTH] = {
 
 volatile unsigned *gpio;
 
-void transmit_gsm_burst(int gpioPin);
+void transmit_gsm_burst(int gpioPin, int delayMicroseconds);
 
 int main(int argc, char** argv) {
     if (argc != 2) {
@@ -78,13 +78,16 @@ int main(int argc, char** argv) {
 
     std::cout << "Transmitting GSM burst at frequency " << frequency << " MHz" << std::endl;
 
+    // Calculate delay based on frequency (simplified example)
+    int delayMicroseconds = static_cast<int>(1e6 / (frequency * 1e6 / GSM_BURST_LENGTH));
+
     // Transmit GSM burst
-    transmit_gsm_burst(14); // GPIO14 (UART TX)
+    transmit_gsm_burst(14, delayMicroseconds); // GPIO14 (UART TX)
 
     return 0;
 }
 
-void transmit_gsm_burst(int gpioPin) {
+void transmit_gsm_burst(int gpioPin, int delayMicroseconds) {
     int gpio_set = 1 << gpioPin;
     int gpio_clr = 1 << (gpioPin + 10);
 
@@ -96,7 +99,7 @@ void transmit_gsm_burst(int gpioPin) {
             } else {
                 GPIO_CLR = gpio_clr;
             }
-            usleep(0.5); // Adjust timing as needed defaulted to 10 due to setting in fm_transmitter project
+            usleep(delayMicroseconds); // Adjust timing based on frequency
         }
     }
 }
