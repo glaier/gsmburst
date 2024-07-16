@@ -19,7 +19,7 @@ Inside the while loop, the burst samples are transmitted sequentially by togglin
 ## Explanation:
 
 ### Frequency Validation and Parsing: 
-The frequency is validated and parsed as before.
+The frequency is validated and parsed.
 
 ### Delay Calculation: 
 A delay is calculated based on the provided frequency. This delay is used to adjust the timing of the transmission.
