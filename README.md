@@ -13,25 +13,24 @@ The test environment is a Raspberry Pi 3 with Raspberry Pi OS 32 Bit
 
 https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit
 
+## Transmitting GSM Burst:
+Inside the while loop, the burst samples are transmitted sequentially by toggling the GPIO pin high and low. The rate, i.e. transmission timing, determines the frequency of the transmitted signal.
+
 ## Explanation:
 
-### Direct Memory Access: 
-The program uses memory-mapped I/O to access GPIO registers directly. This is done through the /dev/mem device file.
-### GPIO Registers: 
-The GPIO registers are accessed and manipulated to set and clear the GPIO pin.
-### Frequency Parameter: 
-The program ensures that the frequency parameter is mandatory and correctly formatted.
-### Transmitting GSM Burst: 
-The GSM burst is transmitted by directly setting and clearing the GPIO pin in a loop, without using the WiringPi library.
+### Frequency Validation and Parsing: 
+The frequency is validated and parsed as before.
 
-This code achieves the desired functionality without relying on external libraries like WiringPi. It directly manipulates the GPIO registers for controlling the GPIO14 (UART TX) pin.
+### Delay Calculation: 
+A delay is calculated based on the provided frequency. This delay is used to adjust the timing of the transmission.
 
-## Transmitting GSM Burst:
+### Adjusting Transmission Timing: 
+The transmit_gsm_burst function takes an additional parameter delayMicroseconds, which is used to control the timing between each burst sample.
 
-Inside the while loop, the burst samples are transmitted sequentially by toggling the GPIO pin high and low.
-
-Adjust usleep timings based on GSM burst rate and Raspberry Pi capabilities.
-
+### Notes:
+The delay calculation int delayMicroseconds = static_cast<int>(1e6 / (frequency * 1e6 / GSM_BURST_LENGTH)); is a simplified example. You may need to adjust this based on the actual timing requirements for your transmission.
+Directly accessing GPIO through memory-mapped I/O is low-level and can be complex. Make sure to run this code with appropriate permissions (e.g., as root) since it accesses /dev/mem.
+This implementation transmits the GSM burst while adjusting the timing based on the provided frequency parameter. This code achieves the desired functionality without relying on external libraries like WiringPi. It directly manipulates the GPIO registers for controlling the GPIO14 (UART TX) pin.
 
 ## Compilation and Execution:
 
