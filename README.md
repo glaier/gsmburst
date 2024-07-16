@@ -13,32 +13,22 @@ The test environment is a Raspberry Pi 3 with Raspberry Pi OS 32 Bit
 
 https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit
 
-### Libraries Used:
-
-WiringPi: Install WiringPi library for GPIO control in C/C++.
-
-Download package file from https://github.com/WiringPi/WiringPi/releases
-
-```
-sudo dpkg -i wiringpi_3.6_armhf.deb
-```
-
 ## Explanation:
 
-### WiringPi: 
-Provides easy GPIO control on the Raspberry Pi.
+### Direct Memory Access: 
+The program uses memory-mapped I/O to access GPIO registers directly. This is done through the /dev/mem device file.
+### GPIO Registers: 
+The GPIO registers are accessed and manipulated to set and clear the GPIO pin.
+### Frequency Parameter: 
+The program ensures that the frequency parameter is mandatory and correctly formatted.
+### Transmitting GSM Burst: 
+The GSM burst is transmitted by directly setting and clearing the GPIO pin in a loop, without using the WiringPi library.
 
-### GPIO Setup:
-wiringPiSetup() initializes WiringPi library.
-
-pinMode(gpioPin, OUTPUT) sets the GPIO pin mode for transmission.
-
-
-
+This code achieves the desired functionality without relying on external libraries like WiringPi. It directly manipulates the GPIO registers for controlling the GPIO14 (UART TX) pin.
 
 ## Transmitting GSM Burst:
 
-Inside the while loop, the burst samples are transmitted sequentially by toggling the GPIO pin (gpioPin) high and low.
+Inside the while loop, the burst samples are transmitted sequentially by toggling the GPIO pin high and low.
 
 Adjust usleep timings based on GSM burst rate and Raspberry Pi capabilities.
 
