@@ -1,0 +1,108 @@
+\documentclass[a4paper]{article}
+\usepackage{circuitikz}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{graphicx} % For scaling graphics
+
+\begin{document}
+
+% Page 1: Schematic
+\newpage
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    \Huge
+    \textbf{Active Attenuator Schematic}
+    
+    \vspace{1.5cm}
+    
+    \noindent
+    \resizebox{\textwidth}{!}{% Scale schematic to fit the page width
+        \begin{circuitikz}
+            % Scale down text size
+            \scriptsize
+
+            % Nodes
+            \node at (0,0) (pi) {};
+            \node at (2,0) (res1) [circ] {};
+            \node at (4,0) (opamp_in) [circ] {};
+            \node at (6,0) (opamp_out) [circ] {};
+            \node at (8,0) (res2) [circ] {};
+            \node at (10,0) (ant) {};
+
+            % Components
+            \draw (pi) node[left]{Raspberry Pi GPIO14 (UART TX)} -- (res1) to[R, l_={$R_1$}] (opamp_in);
+            \draw (opamp_in) -- (4,0) -- (4,2) to[R, l={$R_f$}] (6,2) -- (6,0) -- (opamp_out);
+            \draw (opamp_out) to[R, l_={$R_2$}] (res2);
+            \draw (res2) -- (ant) node[right]{Antenna (50 cm, SMA Connector)};
+
+            % Ground
+            \node at (4,-2) (gnd1) {Ground};
+            \node at (6,-2) (gnd2) {Ground};
+            \draw (opamp_in) -- (4,-1.5) -- (gnd1);
+            \draw (opamp_out) -- (6,-1.5) -- (gnd2);
+
+            % Op Amp symbol
+            \draw (4,0) -- (4,2);
+            \draw (6,0) -- (6,2);
+            \draw (5,1) node[op amp, anchor=-] {};
+        \end{circuitikz}
+    }
+\end{titlepage}
+
+% Page 2: Legend
+\newpage
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    \Huge
+    \textbf{Schematic Legend}
+    
+    \vspace{1.5cm}
+    
+    \noindent
+    \resizebox{\textwidth}{!}{% Scale legend table to fit the page width
+        \begin{tabular}{|c|c|}
+            \hline
+            Symbol & Description \\
+            \hline
+            pi & Raspberry Pi GPIO14 (UART TX) \\
+            res1 & Input Resistor (R1) \\
+            opamp\_in & Operational Amplifier Input \\
+            opamp\_out & Operational Amplifier Output \\
+            res2 & Output Resistor (R2) \\
+            ant & Antenna (50 cm, SMA Connector) \\
+            gnd1 & Ground (for input side) \\
+            gnd2 & Ground (for output side) \\
+            \hline
+        \end{tabular}
+    }
+\end{titlepage}
+
+% Page 3: Component Values Table
+\newpage
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    \Huge
+    \textbf{Component Values}
+    
+    \vspace{1.5cm}
+    
+    \noindent
+    \resizebox{\textwidth}{!}{% Scale values table to fit the page width
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Symbol & Description & Value/Formulas \\
+            \hline
+            $R_1$ & Input Resistor & 1 k$\Omega$ \\
+            $R_2$ & Output Resistor & 1 k$\Omega$ \\
+            $R_f$ & Feedback Resistor & 31.6 k$\Omega$ for 30 dB, 100 k$\Omega$ for 40 dB \\
+            \hline
+        \end{tabular}
+    }
+\end{titlepage}
+
+\end{document}

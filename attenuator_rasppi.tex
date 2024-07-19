@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{circuitikz}
+\usepackage{pdfpages}
+
+\begin{document}
+
+% Page 1: Schematic
+\begin{titlepage}
+    \centering
+    \vspace*{1in}
+    \textbf{\LARGE Schematic}
+    \vspace{1.5in}
+    
+    \scriptsize % Adjust text size for schematic
+    \begin{circuitikz}
+        % Nodes
+        \node at (0,0) (pi) {};
+        \node at (2,0) (res1) [circ] {};
+        \node at (4,0) (cap) [circ] {};
+        \node at (6,0) (res2) [circ] {};
+        \node at (8,0) (ant) {};
+
+        % Components
+        \draw (pi) node[left]{Raspberry Pi GPIO14 (UART TX)} -- (res1) to[R, l_=$R_1$] (cap);
+        \draw (cap) to[C, l_=$C$] (res2);
+        \draw (res2) to[R, l_=$R_2$] (ant);
+        \draw (ant) node[right]{Antenna (50 cm, SMA Connector)};
+
+        % Ground
+        \node at (4,-2) (gnd) {Ground};
+        \draw (cap) -- (4,-1.5) -- (gnd);
+    \end{circuitikz}
+\end{titlepage}
+
+% Page 2: Table
+\begin{titlepage}
+    \centering
+    \vspace*{1in}
+    \textbf{\LARGE Component Table}
+    \vspace{1.5in}
+    
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Symbol & Description & Value/Formulas \\
+        \hline
+        $R_1$ & Resistor 1 & 10 k$\Omega$ \\
+        $R_2$ & Resistor 2 & 1 k$\Omega$ \\
+        $C$ & Capacitor & 10 nF \\
+        \hline
+    \end{tabular}
+\end{titlepage}
+
+\end{document}
