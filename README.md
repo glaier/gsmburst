@@ -80,4 +80,14 @@ Run the compiled program with a specified frequency (in MHz):
 ```
 
 ## Relay Jammer
-For lower frequencies, e.g. 2MHz, it may be advised to use the function signal generator on a car relay. The 30 connector is the COM port and should receive the signal from the raspberry pi, while the 85 and 86 connectors are for the (12V) power supply. 87(a) should be connected tight to a 50cm antenna, e.g. 1.5mm2 installation cable wire. There is a limit given by both the relay and the physically concepts involved in the relay jammer. Do not expect to be able to take down 4G, 5G, ... signals entirely with this solution. 
+An old-fashioned jammer around the SW spectrum comes from short-circuiting an automotive relay:
+
+```
+Pin 30 is connected to +12V (red).
+Pin 85 is connected to ground (black).
+Pin 87a is connected to Pin 86 (the short-circuiting, use a resistor to lower the frequency).
+Pin 87 is connected to a rod antenna (electrical installation cable, 50 cm)
+```
+Another low frequency jammer for the AM spectrum is a spark plug tester (Aliexpress) with a resistorless sparkplug.
+
+For lower frequencies, ie. 1-5MHz, it may be advised to use either an Arduino or Raspberry Pi to create a 0-1 (on-off) 12V signal to a relay with a rod antenna on Pin 87 to control the emission frequency with precision.
